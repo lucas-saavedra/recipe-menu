@@ -24,7 +24,7 @@ const ItemDetail = ({ item }) => {
             {!item ? (<PageNotFound msg='An error has appeared, please try again.' />) :
                 (
                     <>
-                        <div className="col-md-6 col-lg-10 col-xs-2">
+                        <div className="col-md-6 col-xs-2">
                             <div className='d-flex justify-content-center align-items-center w-100 h-100'>
                                 <img src={image} style={{ objectFit: 'cover' }} className="w-100 h-100 rounded" alt={title}></img>
                             </div>

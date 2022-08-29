@@ -2,7 +2,8 @@ import { Form, Container, Row, Image } from "react-bootstrap"
 import { useState } from "react";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import loginUser from "../../../src/services/loginUser.js";
+import { loginUser } from "../../services/axiosService.js";
+
 const Login = ({ setToken }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -20,7 +21,7 @@ const Login = ({ setToken }) => {
             setLoading(true);
             try {
                 const result = await loginUser(email, password)
-                setToken(result.data.token)
+                setToken(result.data.token);
                 MySwal
                     .fire({
                         icon: 'success',
@@ -42,54 +43,56 @@ const Login = ({ setToken }) => {
         }
     }
     return (
-        <div style={{ height: '100vh' }} className="bg-success text-dark bg-opacity-50">
-            <Container >
-                <Row >
-                    <div className="col-md-6 d-flex justify-content-center pt-3">
-                        <Image height={300} src="https://spoonacular.com/images/spoonacular-logo-b.svg"></Image>
+        <div className=" bg-success text-dark bg-opacity-50">
+            <Container style={{ height: '100vh' }} className="d-flex justify-content-center">
+                <Row className="d-flex justify-content-center" >
+
+                    <Image height={300} className='py-3' src="https://spoonacular.com/images/spoonacular-logo-b.svg"></Image>
+                    <div>
+                        <div className='d-flex justify-content-center align-items-center'>
+
+                            <Form onSubmit={HandleLogin} className="col-md-6">
+
+                                <Form.Group className="mb-3" controlId="formEmail">
+                                    <Form.Label >Email</Form.Label>
+                                    <Form.Control
+                                        type="email"
+                                        placeholder="Enter email"
+                                        onChange={({ target }) => setEmail(target.value)}
+                                        value={email}
+                                    />
+                                    <Form.Control.Feedback type="invalid">
+                                        Please enter an email.
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="formPassword">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        placeholder="Password"
+                                        onChange={({ target }) => setPassword(target.value)}
+                                        value={password}
+                                    />
+                                    <Form.Control.Feedback type="invalid">
+                                        Please enter an email.
+                                    </Form.Control.Feedback>
+                                </Form.Group>
+                                <div className=" d-grid d-block">
+                                    <button className="btn btn-success" type="submit" disabled={loading}>
+                                        Submit
+                                    </button>
+                                </div>
+                                <h4 className="display-5 py-3" style={{ fontSize: '2rem' }}>
+                                    Email to enter: eve.holt@reqres.in
+                                </h4>
+
+                            </Form>
+
+
+                        </div>
                     </div>
-                    <div className='d-flex col-md-6 justify-content-center align-items-center'>
 
-                        <Form onSubmit={HandleLogin} className="col-10">
-
-                            <Form.Group className="mb-3" controlId="formEmail">
-                                <Form.Label >Email address</Form.Label>
-                                <Form.Control
-                                    type="email"
-                                    placeholder="Enter email"
-                                    onChange={({ target }) => setEmail(target.value)}
-                                    value={email}
-                                />
-                                <Form.Control.Feedback type="invalid">
-                                    Please enter an email.
-                                </Form.Control.Feedback>
-                            </Form.Group>
-
-                            <Form.Group className="mb-3" controlId="formPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    placeholder="Password"
-                                    onChange={({ target }) => setPassword(target.value)}
-                                    value={password}
-                                />
-                                <Form.Control.Feedback type="invalid">
-                                    Please enter an email.
-                                </Form.Control.Feedback>
-                            </Form.Group>
-                            <div className=" d-grid d-block">
-                                <button className="btn btn-success" type="submit" disabled={loading}>
-                                    Submit
-                                </button>
-                            </div>
-                            <h4 className="display-5 py-3" style={{ fontSize: '2rem' }}>
-                                Email to enter: eve.holt@reqres.in
-                            </h4>
-
-                        </Form>
-
-
-                    </div>
                 </Row>
             </Container >
         </div>

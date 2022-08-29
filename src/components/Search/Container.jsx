@@ -1,10 +1,10 @@
 
 import { useEffect, useState } from "react";
-import axios from 'axios';
 import { Container } from "react-bootstrap";
 import { useFormik } from 'formik';
 import SearchForm from "./SearchForm";
 import SearchList from "./SearchList";
+import { getRecipes } from "../../services/axiosService";
 
 const SearchListContainer = () => {
     const [search, setSearch] = useState('');
@@ -18,7 +18,8 @@ const SearchListContainer = () => {
         if (mounted) {
             if (search !== '') {
                 setLoading(true);
-                axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${search}&offset=${offset}&apiKey=${import.meta.env.VITE_API_KEY}`)
+                // *axios request
+                getRecipes(search, offset)
                     .then(({ data }) => {
                         setRecipes(data.results);
                         setTotalRecipes(data.totalResults);
