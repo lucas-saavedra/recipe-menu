@@ -6,7 +6,6 @@ import DisplayMessage from "../DisplayMessage/DisplayMessage";
 import Loader from "../Loader/Loader";
 
 const SearchList = ({ loading, error, paginate, offset, recipes, totalRecipes }) => {
-    console.log(recipes);
     return (
         <>
             {recipes ?
